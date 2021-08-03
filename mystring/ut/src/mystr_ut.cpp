@@ -14,6 +14,14 @@ TEST(KONSTRUKTOR_DOMYSLNY, EMPTY_OBJECT) {
 }
 
 TEST(KONSTRUKTOR_CONST_CHAR, OBJECT) {
-    mystring obj("Hello world");
+    const char* text = "Hello world";
+    int text_len = strlen(text);
+    mystring obj(text);
+    ASSERT_EQ(text_len, obj.length());
+    ASSERT_LE(obj.length(), obj.size());
+    ASSERT_STREQ(text, obj.buffer());
     mystring emp("");
+    ASSERT_EQ(0, emp.length());
+    ASSERT_GE(emp.size(), emp.length());
+    ASSERT_STREQ(emp.buffer(), "");
 }
