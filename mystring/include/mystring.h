@@ -36,7 +36,7 @@ namespace pawel
         inline size_t length() const {return _length;}
         inline size_t size() const {return _buffer_size;}
         inline const char* buffer() const {return _buffer;};
-        const void resize(size_t newSize);
+        void resize(size_t newSize);
     };
 }
 

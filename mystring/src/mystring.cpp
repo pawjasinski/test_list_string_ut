@@ -15,6 +15,14 @@ namespace pawel {
             _length = 0;
             std::cerr << "Niepowodzenie konstruktor domyslny\n";
         }
+        if (_buffer != memcpy(_buffer, "", (_length + 1) * sizeof(char)))
+        {
+            std::cerr << "Niepowodzenie memcpy\n";
+            _length = 0;
+            delete[] _buffer;
+            _buffer = nullptr;
+            _buffer_size = 0;
+        }
     }
 
     mystring::~mystring() {
@@ -119,26 +127,28 @@ namespace pawel {
         return true;
     }
 
-    const void mystring::resize(size_t newSize) {
+    void mystring::resize(size_t newSize) {
         if(newSize > _buffer_size) {
             char* tmp;
             size_t len = _buffer_size;
             try {
                 tmp = new char[newSize];
-                _buffer_size = newSize;
             }
             catch(std::bad_alloc& e) {
                 std::cerr << "Mystring::resize, za malo pamieci\n";
-                _buffer_size = len;
                 return;
             }
             if (_buffer != memcpy(_buffer, tmp, _buffer_size * sizeof(char))) {
                 std::cerr << "Niepowodzenie memcpy\n";
                 _length = 0;
                 delete[] _buffer;
+                delete[] tmp;
                 _buffer = nullptr;
                 _buffer_size = 0;
             }
+            delete[] _buffer;
+            _buffer = tmp;
+            _buffer_size = newSize;
         }
     }
 
