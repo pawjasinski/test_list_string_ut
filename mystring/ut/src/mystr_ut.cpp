@@ -49,25 +49,73 @@ TEST(KONSTRUKTOR_KOPIUJACY, EMPTY_OBJECT) {
 }
 
 TEST(KONSTRUKTOR_PRZENOSZACY, OBJECT) {
-    ;
+    const char* str = "Hello world";
+    int strlength = strlen(str);
+    mystring ob1("Hello");
+    mystring obj2(std::move(ob1));
+    mystring obj3(mystring("Hello world"));
+    ASSERT_STREQ(obj2.buffer(), obj3.buffer());
+    ASSERT_STREQ(obj2.buffer(), str);
+    EXPECT_EQ(strlength, obj2.length());
+    EXPECT_EQ(strlength, obj3.length());
 }
 
 TEST(KONSTRUKTOR_PRZENOSZACY, EMPTY_OBJECT) {
-    ;
+    const char* str = "";
+    int strlength = 0;
+    mystring ob1("");
+    mystring obj2(std::move(ob1));
+    mystring obj3(mystring("Hello world"));
+    ASSERT_STRNE(obj2.buffer(), obj3.buffer());
+    ASSERT_STREQ(obj2.buffer(), str);
+    EXPECT_EQ(strlength, obj2.length());
+    EXPECT_NE(strlength, obj3.length());
 }
 
 TEST(KOPIUJACY_OPERATOR_PRZYPISANIA, OBJECT) {
-    ;
+    const char* str = "Hello world";
+    int strlength = strlen(str);
+    mystring ob1(str);
+    mystring obj2 = ob1;
+    mystring obj3 = obj2;
+    ASSERT_STREQ(obj2.buffer(), obj3.buffer());
+    ASSERT_STREQ(obj2.buffer(), str);
+    EXPECT_EQ(strlength, obj2.length());
+    EXPECT_EQ(strlength, obj3.length());
 }
 
 TEST(KOPIUJACY_OPERATOR_PRZYPISANIA, EMPTY_OBJECT) {
-    ;
+    const char* str = "";
+    int strlength = strlen(str);
+    mystring ob1(str);
+    mystring obj2 = ob1;
+    mystring obj3 = obj2;
+    ASSERT_STREQ(obj2.buffer(), obj3.buffer());
+    ASSERT_STREQ(obj2.buffer(), str);
+    EXPECT_EQ(strlength, obj2.length());
+    EXPECT_EQ(strlength, obj3.length());
 }
 
 TEST(PRZENOSZACY_OPERATOR_PRZYPISANIA, OBJECT) {
-    ;
+    const char* str = "Hello world";
+    int strlength = strlen(str);
+    mystring obj2 = mystring(str);
+    mystring obtest = mystring(str);
+    mystring obj3 = std::move(obtest);
+    ASSERT_STREQ(obj2.buffer(), obj3.buffer());
+    ASSERT_STREQ(obj2.buffer(), str);
+    EXPECT_EQ(strlength, obj2.length());
+    EXPECT_EQ(strlength, obj3.length());
 }
 
 TEST(PRZENOSZACY_OPERATOR_PRZYPISANIA, EMPTY_OBJECT) {
-    ;
+    const char* str = "";
+    int strlength = strlen(str);
+    mystring obj2 = mystring(str);
+    mystring obtest = mystring(str);
+    mystring obj3 = std::move(obtest);
+    ASSERT_STREQ(obj2.buffer(), obj3.buffer());
+    ASSERT_STREQ(obj2.buffer(), str);
+    EXPECT_EQ(strlength, obj2.length());
+    EXPECT_EQ(strlength, obj3.length());
 }

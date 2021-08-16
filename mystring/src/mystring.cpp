@@ -130,7 +130,6 @@ namespace pawel {
     void mystring::resize(size_t newSize) {
         if(newSize > _buffer_size) {
             char* tmp;
-            size_t len = _buffer_size;
             try {
                 tmp = new char[newSize];
             }
