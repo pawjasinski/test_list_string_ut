@@ -78,7 +78,6 @@ namespace pawel {
     }
 
     mystring::mystring(mystring &&mstr) {
-        //std::cout << "Konstruktor przenoszacy\n";
         _length = mstr._length;
         _buffer_size = mstr._buffer_size;
         _buffer = mstr._buffer;

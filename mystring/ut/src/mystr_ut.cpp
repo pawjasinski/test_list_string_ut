@@ -6,6 +6,36 @@
 #include <gmock/gmock.h>
 using namespace pawel;
 
+TEST(FUNCTIONS, LENGTH) {
+    mystring f0;
+    mystring f1 = "a";
+    mystring f2 = "ab";
+    mystring f3 = "abc";
+    mystring f4 = "abd";
+    ASSERT_EQ(f0.length(), 0);
+    ASSERT_EQ(f1.length(), 1);
+    ASSERT_EQ(f2.length(), 2);
+    ASSERT_EQ(f3.length(), 3);
+    ASSERT_EQ(f4.length(), 3);
+}
+
+TEST(FUNCTIONS, SIZE) {
+    mystring f0;
+    mystring f1 = "ab";
+    const char* st = "\"123456789012345678901\"";
+    mystring f2(st);
+    ASSERT_EQ(f0.size(), f1.size());
+    ASSERT_GE(f2.size(), strlen(st));
+}
+
+TEST(FUNCTIONS, BUFFER) {
+    ;
+}
+
+TEST(FUNCTIONS, RESIZE) {
+    ;
+}
+
 TEST(KONSTRUKTOR_DOMYSLNY, EMPTY_OBJECT) {
     mystring empt;
     ASSERT_EQ(0, empt.length());
@@ -51,7 +81,7 @@ TEST(KONSTRUKTOR_KOPIUJACY, EMPTY_OBJECT) {
 TEST(KONSTRUKTOR_PRZENOSZACY, OBJECT) {
     const char* str = "Hello world";
     int strlength = strlen(str);
-    mystring ob1("Hello");
+    mystring ob1(str);
     mystring obj2(std::move(ob1));
     mystring obj3(mystring("Hello world"));
     ASSERT_STREQ(obj2.buffer(), obj3.buffer());
@@ -103,8 +133,7 @@ TEST(PRZENOSZACY_OPERATOR_PRZYPISANIA, OBJECT) {
     mystring obtest = mystring(str);
     mystring obj3 = std::move(obtest);
     ASSERT_STREQ(obj2.buffer(), obj3.buffer());
-    ASSERT_STREQ(obj2.buffer(), str);
-    EXPECT_EQ(strlength, obj2.length());
+    ASSERT_STREQ(obj3.buffer(), str);
     EXPECT_EQ(strlength, obj3.length());
 }
 
@@ -115,7 +144,6 @@ TEST(PRZENOSZACY_OPERATOR_PRZYPISANIA, EMPTY_OBJECT) {
     mystring obtest = mystring(str);
     mystring obj3 = std::move(obtest);
     ASSERT_STREQ(obj2.buffer(), obj3.buffer());
-    ASSERT_STREQ(obj2.buffer(), str);
-    EXPECT_EQ(strlength, obj2.length());
+    ASSERT_STREQ(obj3.buffer(), str);
     EXPECT_EQ(strlength, obj3.length());
 }
